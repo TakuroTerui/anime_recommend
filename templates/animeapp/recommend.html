@@ -1,0 +1,81 @@
+{% extends 'animeapp/base.html' %}
+{% load humanize %}
+
+{% block content %}
+<style>
+	h2 {
+		margin-top: 80px;
+	}
+	.table {
+		margin-top: 30px;
+	}
+	table th {
+		background: #F0F8FF;
+	}
+	.side-line {
+		border-right: 1px #d3d3d3 dotted;
+	}
+	.heart_red {
+		color: #e54747;
+	}
+	button:hover {
+		background-color: #e9ecef;
+	}
+</style>
+<h2>あなたにおすすめのアニメ10選</h2>
+<table class="table table-striped table-hover">
+	<tr>
+		<!-- <th>id</th> -->
+		<th>Title</th>
+		<th>Broadcast Type</th>
+		<th>Rating</th>
+		<th>Review Count</th>
+		<th>Genre</th>
+		<th> </th>
+	</tr>
+	{% for list in anime_list %}
+		<tr class="data-row">
+			<!-- <td>{{ list.id }}</td> -->
+			<td class="side-line">{{ list.anime_name }}</td>
+			<td class="side-line">{{ list.type }}</td>
+			<td class="side-line">{{ list.rating }}</td>
+			<td class="side-line">{{ list.members| intcomma }}</td>
+			<td class="side-line">
+				{% for genre in list.genres.all %}
+					{{ genre }}
+				{% endfor %}
+			</td>
+			{% if list.favorites.first is None %}
+				<td id="favorite"><i class="far fa-heart" id="{{ list.id }}" onclick="favoriteOn($(this).attr('id'))"></i></td>
+			{% else %}
+				<td id="favorite"><i class="fas heart_red fa-heart" id="{{ list.id }}"></i></td>
+			{% endif %}
+		</tr>
+	{% endfor %}
+	<form method="post" name="favorite_form">{% csrf_token %}
+		<input type="hidden" name="favorite">
+	</form>
+</table>
+<button style="width:100px;height:30px;border:1px solid #dee2e6;background-color:white;">
+	<a href="{% url 'anime' %}" style="text-decoration: underline;">一覧に戻る</a>
+</button>
+
+<script>
+	$('#favorite > i').on('click', function() {
+		let isFavorite = $(this).hasClass('far');
+		if (isFavorite) {
+			$(this).removeClass('far');
+			$(this).addClass('fas heart_red');
+		} else {
+			$(this).removeClass('fas heart_red');
+			$(this).addClass('far');
+		}
+	});
+	function favoriteOn(animeId) {
+		$('input[name="favorite"]').val(animeId);
+		document.favorite_form.action = '/anime/' + animeId;
+		document.favorite_form.submit();
+	}
+</script>
+
+{% endblock %}

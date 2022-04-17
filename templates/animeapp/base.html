@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ja" dir="ltr">
+<head>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<title>{% block title %}Anime List{% endblock %}</title>
+</head>
+
+<body>
+	<nav class="navbar navbar-light fixed-top" style="border-bottom: 1px solid;background: radial-gradient(#5577AA, #1E90FF);">
+		<span class="navbar-brand mb-0 h1" style="color:#fff;">Anime List</span>
+		<!-- ログアウト機能の追加 -->
+		{% if user.is_authenticated %}
+			<span style="font-size:15px; text-align: right;">
+				<!-- ログアウトのURLに移動するように処理 -->
+				<a href="{% url 'logout' %}" style="color:#fff; text-decoration: underline;">
+				Logout
+				</a>
+			</span>
+		{% endif %}
+	</nav>
+	<div class="contents" style="margin:0 20px;">
+		{% block content %}
+		{% endblock %}
+	</div>
+</body>
+</html>
