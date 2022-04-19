@@ -10,10 +10,12 @@ from .forms import LoginForm, SignUpForm
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.decorators import login_required
 import pickle
+import joblib
 import pandas as pd
 
-loaded_model = pickle.load(open('model/finalized_model.sav', 'rb'))
-df_piv = pd.read_pickle('model/df_piv.pkl')
+loaded_model = joblib.load('model/model.joblib')
+df = joblib.load('model/df_normal.joblib')
+df_piv = df.pivot(index="anime_id",columns="user_id",values="rating").fillna(0)
 
 @login_required
 def index(request):
