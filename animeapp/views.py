@@ -25,7 +25,9 @@ def index(request):
 def anime_list(request):
 	anime_list = Anime.objects.order_by('members').reverse()
 	anime_list_page = paginate_query(request, anime_list, settings.PAGE_PER_ITEM)
-	return render(request, 'animeapp/list.html', context={'anime_list':anime_list_page})
+	return render(request, 'animeapp/list.html', context={
+		'anime_list':anime_list_page,
+	})
 
 @login_required
 def anime_upload(request):
