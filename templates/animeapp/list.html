@@ -48,7 +48,7 @@
 					{{ genre }}
 				{% endfor %}
 			</td>
-			{% if list.favorites.first is None %}
+			{% if user.get_username != list.favorites.first.username %}
 				<td id="favorite"><i class="far fa-heart" id="{{ list.id }}" onclick="favoriteOn($(this).attr('id'))"></i></td>
 			{% else %}
 				<td id="favorite"><i class="fas heart_red fa-heart" id="{{ list.id }}" onclick="favoriteOff($(this).attr('id'))"></i></td>
