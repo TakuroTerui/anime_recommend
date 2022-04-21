@@ -1,1 +1,1 @@
-web: gunicorn helloworldproject.wsgi
+web: gunicorn animeproject.wsgi
