@@ -1,1 +1,1 @@
-web: gunicorn animeproject.wsgi
+web: gunicorn anime_recommend.wsgi
