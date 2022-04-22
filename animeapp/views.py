@@ -95,6 +95,17 @@ def paginate_query(request, queryset, count):
 
 @login_required
 def favorite(request, anime_id):
+	loaded_model = joblib.load('model/model.joblib')
+	rate_df = pd.read_csv('model/org_ratings.csv')
+	anime_df = pd.read_csv('model/org_anime.csv')
+	# animeとratingsの2つのデータフレームをマージさせる
+	df = rate_df.merge(anime_df, left_on = 'anime_id', right_on = 'anime_id', suffixes= ['_user', ''])
+	df = df.loc[:,["anime_id", "user_id", "rating"]]
+	df = df.drop_duplicates(subset=['anime_id','user_id'])
+	#疎行列(行列の中身が0ばかりの行列)に変換。行名が映画のID、列名がユーザーID、行列の中身が評価
+	df_piv = df.pivot(index="anime_id",columns="user_id",values="rating").fillna(0)
+	# df = joblib.load('model/df_normal.joblib')
+	# df_piv = df.pivot(index="anime_id",columns="user_id",values="rating").fillna(0)
 	if request.method == 'POST' and request.is_ajax() == False:
 		user = User(id=request.user.id)
 		anime = Anime(id=anime_id)
