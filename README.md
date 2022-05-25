@@ -1,3 +1,14 @@
+### アニメリスト
+- いいね前
+![スクリーンショット 2022-05-25 11 34 52](https://user-images.githubusercontent.com/77182341/170167489-6304d7e0-204c-4908-9417-db4bb2d573d5.png)
+
+- いいね後
+![スクリーンショット 2022-05-25 11 36 22](https://user-images.githubusercontent.com/77182341/170167674-7d939718-cf87-450b-a1ba-1d6797cbf1bc.png)
+
+### レコメンドリスト
+![スクリーンショット 2022-05-25 11 36 04](https://user-images.githubusercontent.com/77182341/170167609-c1bfae70-f4dd-481e-9651-0130a5975e6f.png)
+
+
 参考
 https://dse-souken.com/2021/03/25/ai-20/
 
